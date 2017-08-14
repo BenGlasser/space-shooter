@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class GameController : MonoBehaviour {
 
-    public List<GameObject> hazard;
+    public GameObject hazard1;
+    public GameObject hazard2;
+    public GameObject hazard3;
     public Vector3 spawnValues;
     public int hazardcount;
     public float spawnWait;
@@ -19,6 +21,8 @@ public class GameController : MonoBehaviour {
     private bool restart;
     private int score;
 
+    private List<GameObject> hazardList;
+
     // Use this for initialization
     void Start ()
     {
@@ -26,6 +30,7 @@ public class GameController : MonoBehaviour {
         restart = false;
         restartText.text = "";
         gameOverText.text = "";
+        hazardList = new List<GameObject> { hazard1, hazard2, hazard3 };
 
         GameObject scoreObject = GameObject.FindWithTag("score");
         GameObject gameoverObject = GameObject.FindWithTag("gameover");
@@ -65,7 +70,7 @@ public class GameController : MonoBehaviour {
             {
                 Vector3 spawnPosition = new Vector3(Random.Range(-spawnValues.x, spawnValues.x), spawnValues.y, spawnValues.z);
                 Quaternion spawnRotation = Quaternion.identity;
-                Instantiate(hazard, spawnPosition, spawnRotation);
+                Instantiate(hazardList[i%3], spawnPosition, spawnRotation);
 
                 yield return new WaitForSeconds(spawnWait);
             }
